@@ -1,223 +1,199 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Mail, MessageSquare, Send, Github, Linkedin, Twitter } from 'lucide-react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [focusedField, setFocusedField] = useState(null);
+  const [status, setStatus] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Сообщение отправлено! (это демо)');
-    setFormData({ name: '', email: '', message: '' });
+    setStatus('sending');
+    
+    setTimeout(() => {
+      setStatus('success');
+      setFormData({ name: '', email: '', message: '' });
+      
+      setTimeout(() => setStatus(''), 3000);
+    }, 1500);
   };
 
+  const contactInfo = [
+    { icon: Mail, label: 'Email', value: 'muhammadzinur@example.com', link: 'mailto:muhammadzinur@example.com' },
+    { icon: MessageSquare, label: 'Telegram', value: '@yourusername', link: 'https://t.me/yourusername' },
+  ];
+
   const socialLinks = [
-    { icon: '📧', label: 'Email', value: 'mukhammadzinnurhtml@gmail.com', color: 'from-red-500 to-orange-500' },
-    { icon: '📱', label: 'Telegram', value: '@Mukhammadzinnur', color: 'from-blue-500 to-cyan-500' },
-    { icon: '💼', label: 'LinkedIn', value: 'linkedin.com/in/...', color: 'from-blue-600 to-blue-800' },
-    { icon: '🐙', label: 'GitHub', value: 'github.com/...', color: 'from-gray-700 to-gray-900' },
+    { icon: Github, label: 'GitHub', link: 'https://github.com' },
+    { icon: Linkedin, label: 'LinkedIn', link: 'https://linkedin.com' },
+    { icon: Twitter, label: 'Twitter', link: 'https://twitter.com' },
   ];
 
   return (
-    <section id="contact" className="py-20 px-6 md:px-20 bg-gradient-to-br from-purple-50 to-pink-50 relative overflow-hidden">
-      <div className="absolute top-20 left-10 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
-      <div className="absolute bottom-20 right-10 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000"></div>
-
-      <div className="max-w-6xl mx-auto relative z-10">
-ц        <motion.div
-          initial={{ opacity: 0, y: -30 }}
+    <section id="contact" className="relative bg-black text-white py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 overflow-hidden">
+      {/* Grid Background */}
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.02)_1px,transparent_1px)] bg-[size:32px_32px] sm:bg-[size:48px_48px] lg:bg-[size:64px_64px]" />
+      
+      {/* Gradient Orb */}
+      <div className="absolute bottom-0 right-0 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 bg-cyan-500/20 rounded-full blur-3xl" />
+      
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12 relative">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10 sm:mb-12 md:mb-14 lg:mb-16"
         >
-          <motion.div
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            transition={{ duration: 0.5, type: "spring" }}
-            className="inline-block mb-4"
-          >
-            <span className="px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full text-sm font-semibold shadow-lg">
-              СВЯЖИТЕСЬ СО МНОЙ
-            </span>
-          </motion.div>
-          
-          <h2 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Контакты
+          <p className="text-blue-500 text-xs sm:text-sm font-semibold mb-3 sm:mb-4 tracking-wider uppercase">Get In Touch</p>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 leading-tight">
+            Let's Work Together
           </h2>
-          
-          <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-            Готов воплотить вашу идею в жизнь. Свяжитесь со мной любым удобным способом!
+          <p className="text-gray-400 text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto px-4">
+            Have a project in mind? Let's discuss how we can bring your ideas to life
           </p>
-
-          <div className="w-24 h-1.5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mx-auto mt-6"></div>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Left - Contact Form */}
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 max-w-6xl mx-auto">
+          {/* Contact Form */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20"
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <h3 className="text-2xl font-bold text-gray-800 mb-6">Отправить сообщение</h3>
-            
-            <div className="space-y-6">
-              {/* Name Input */}
-              <div className="relative">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Ваше имя
+            <div className="space-y-4 sm:space-y-5 md:space-y-6">
+              <div>
+                <label className="block text-xs sm:text-sm font-medium text-gray-400 mb-1.5 sm:mb-2">
+                  Name
                 </label>
-                <motion.input
+                <input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  onFocus={() => setFocusedField('name')}
-                  onBlur={() => setFocusedField(null)}
-                  whileFocus={{ scale: 1.02 }}
-                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:bg-white transition-all duration-300 outline-none"
-                  placeholder="Иван Иванов"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-blue-500 transition-colors text-white placeholder-gray-500 text-sm sm:text-base"
+                  placeholder="Your name"
+                  required
                 />
-                {focusedField === 'name' && (
-                  <motion.div
-                    layoutId="focus-indicator"
-                    className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
               </div>
 
-              {/* Email Input */}
-              <div className="relative">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <div>
+                <label className="block text-xs sm:text-sm font-medium text-gray-400 mb-1.5 sm:mb-2">
                   Email
                 </label>
-                <motion.input
+                <input
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
-                  onFocus={() => setFocusedField('email')}
-                  onBlur={() => setFocusedField(null)}
-                  whileFocus={{ scale: 1.02 }}
-                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:bg-white transition-all duration-300 outline-none"
-                  placeholder="ivan@example.com"
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-blue-500 transition-colors text-white placeholder-gray-500 text-sm sm:text-base"
+                  placeholder="your@email.com"
+                  required
                 />
-                {focusedField === 'email' && (
-                  <motion.div
-                    layoutId="focus-indicator"
-                    className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
               </div>
 
-              {/* Message Textarea */}
-              <div className="relative">
-                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                  Сообщение
+              <div>
+                <label className="block text-xs sm:text-sm font-medium text-gray-400 mb-1.5 sm:mb-2">
+                  Message
                 </label>
-                <motion.textarea
+                <textarea
                   value={formData.message}
                   onChange={(e) => setFormData({...formData, message: e.target.value})}
-                  onFocus={() => setFocusedField('message')}
-                  onBlur={() => setFocusedField(null)}
-                  whileFocus={{ scale: 1.02 }}
                   rows={5}
-                  className="w-full px-4 py-3 bg-gray-50 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:bg-white transition-all duration-300 outline-none resize-none"
-                  placeholder="Расскажите о вашем проекте..."
+                  className="w-full px-3 sm:px-4 py-2.5 sm:py-3 bg-white/5 border border-white/10 rounded-lg focus:outline-none focus:border-blue-500 transition-colors text-white placeholder-gray-500 resize-none text-sm sm:text-base"
+                  placeholder="Tell me about your project..."
+                  required
                 />
-                {focusedField === 'message' && (
-                  <motion.div
-                    layoutId="focus-indicator"
-                    className="absolute -bottom-1 left-0 right-0 h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
               </div>
 
-              {/* Submit Button */}
-              <motion.button
+              <button
                 onClick={handleSubmit}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="w-full py-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 flex items-center justify-center gap-3"
+                disabled={status === 'sending'}
+                className="w-full px-6 sm:px-8 py-3 sm:py-4 bg-white text-black font-semibold rounded-lg hover:bg-gray-100 transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-50 text-sm sm:text-base"
               >
-                <span>Отправить</span>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-                </svg>
-              </motion.button>
+                {status === 'sending' ? (
+                  <>
+                    <div className="w-4 h-4 sm:w-5 sm:h-5 border-2 border-black/20 border-t-black rounded-full animate-spin" />
+                    Sending...
+                  </>
+                ) : status === 'success' ? (
+                  <>
+                    <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                    Message Sent!
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <Send size={16} className="sm:w-[18px] sm:h-[18px]" />
+                  </>
+                )}
+              </button>
             </div>
           </motion.div>
 
-          {/* Right - Contact Info */}
+          {/* Contact Info */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="space-y-6"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="space-y-6 sm:space-y-8"
           >
-            <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 shadow-2xl border border-white/20">
-              <h3 className="text-2xl font-bold text-gray-800 mb-6">Другие способы связи</h3>
-              
-              <div className="space-y-4">
-                {socialLinks.map((link, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: idx * 0.1 }}
-                    whileHover={{ x: 10 }}
-                    className="flex items-center gap-4 p-4 bg-gray-50 rounded-xl hover:bg-white hover:shadow-lg transition-all duration-300 cursor-pointer group"
-                  >
-                    <div className={`w-12 h-12 bg-gradient-to-br ${link.color} rounded-xl flex items-center justify-center text-2xl shadow-lg group-hover:scale-110 transition-transform duration-300`}>
-                      {link.icon}
-                    </div>
-                    <div>
-                      <div className="text-sm text-gray-500 font-medium">{link.label}</div>
-                      <div className="font-semibold text-gray-800">{link.value}</div>
-                    </div>
-                  </motion.div>
-                ))}
+            <div>
+              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold mb-4 sm:mb-6">Contact Information</h3>
+              <div className="space-y-3 sm:space-y-4">
+                {contactInfo.map((info, idx) => {
+                  const Icon = info.icon;
+                  return (
+                    <a
+                      key={idx}
+                      href={info.link}
+                      className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 bg-white/5 rounded-lg hover:bg-white/10 transition-colors group"
+                    >
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 bg-white/5 rounded-lg flex items-center justify-center group-hover:bg-white/10 transition-colors flex-shrink-0">
+                        <Icon size={18} className="sm:w-5 sm:h-5 text-blue-500" />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="text-xs sm:text-sm text-gray-400">{info.label}</div>
+                        <div className="text-white font-medium text-sm sm:text-base truncate">{info.value}</div>
+                      </div>
+                    </a>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Quick Response Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="bg-gradient-to-br from-purple-500 to-pink-500 rounded-3xl p-8 text-white shadow-2xl"
-            >
-              <div className="text-5xl mb-4">⚡</div>
-              <h4 className="text-2xl font-bold mb-2">Быстрый ответ</h4>
-              <p className="text-purple-100">
-                Обычно отвечаю в течение 24 часов. Готов обсудить ваш проект!
+            <div>
+              <h3 className="text-lg sm:text-xl md:text-2xl font-bold mb-3 sm:mb-4">Follow Me</h3>
+              <div className="flex gap-3 sm:gap-4">
+                {socialLinks.map((social, idx) => {
+                  const Icon = social.icon;
+                  return (
+                    <a
+                      key={idx}
+                      href={social.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-10 h-10 sm:w-12 sm:h-12 bg-white/5 rounded-lg flex items-center justify-center hover:bg-white/10 transition-colors group"
+                      aria-label={social.label}
+                    >
+                      <Icon size={18} className="sm:w-5 sm:h-5 text-gray-400 group-hover:text-white transition-colors" />
+                    </a>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="p-4 sm:p-5 md:p-6 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 rounded-lg border border-blue-500/20">
+              <h4 className="text-base sm:text-lg md:text-xl font-semibold mb-1.5 sm:mb-2">Response Time</h4>
+              <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
+                I typically respond within 24 hours. Looking forward to hearing from you!
               </p>
-            </motion.div>
+            </div>
           </motion.div>
         </div>
       </div>
-
-      <style>{`
-        @keyframes blob {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          25% { transform: translate(20px, -20px) scale(1.1); }
-          50% { transform: translate(-20px, 20px) scale(0.9); }
-          75% { transform: translate(20px, 20px) scale(1.05); }
-        }
-        .animate-blob {
-          animation: blob 7s infinite;
-        }
-        .animation-delay-2000 {
-          animation-delay: 2s;
-        }
-      `}</style>
     </section>
   );
 }

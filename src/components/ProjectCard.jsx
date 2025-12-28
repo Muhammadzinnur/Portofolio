@@ -1,111 +1,83 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { ExternalLink, Github } from 'lucide-react';
 
-export default function ProjectCard({ title, description, image, link, technologies }) {
+export default function ProjectCard({ title, description, image, link, technologies, github }) {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
-      data-aos="fade-up"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      whileHover={{ y: -10 }}
-      className="group relative rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-500 bg-white"
+      whileHover={{ y: -8 }}
+      className="group relative bg-white/5 backdrop-blur-sm rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 hover:border-white/20 transition-all duration-300"
     >
-      {/* Image Container with Overlay */}
-      <div className="relative h-56 overflow-hidden">
+      {/* Image */}
+      <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden bg-gradient-to-br from-blue-500/10 to-cyan-500/10">
         <motion.img
           src={image}
           alt={title}
-          animate={{ scale: isHovered ? 1.1 : 1 }}
-          transition={{ duration: 0.6 }}
-          className="w-full h-full object-cover"
+          animate={{ scale: isHovered ? 1.05 : 1 }}
+          transition={{ duration: 0.4 }}
+          className="w-full h-full object-cover opacity-80"
         />
         
-        {/* Gradient Overlay */}
-        <div className={`absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}></div>
+        {/* Overlay */}
+        <div className={`absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-60'}`} />
         
-        {/* Animated Border on Hover */}
-        <div className="absolute inset-0 border-2 border-transparent group-hover:border-purple-500 transition-all duration-500 rounded-2xl"></div>
-        
-        {/* Quick View Button */}
-        <motion.a
-          href={"https://x-tv.netlify.app/"}
+        {/* Links */}
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : 20 }}
-          transition={{ duration: 0.3 }}
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-gray-900 px-6 py-3 rounded-full font-semibold hover:bg-purple-500 hover:text-white transition-all duration-300 shadow-lg"
+          transition={{ duration: 0.2 }}
+          className="absolute top-3 sm:top-4 right-3 sm:right-4 flex gap-1.5 sm:gap-2"
         >
-          Смотреть проект →
-        </motion.a>
-
-        {/* Corner Badge */}
-        <div className="absolute top-4 right-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-          NEW
-        </div>
+          {github && (
+            <a
+              href={github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 backdrop-blur-md rounded-lg flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+            >
+              <Github size={16} className="sm:w-[18px] sm:h-[18px]" />
+            </a>
+          )}
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 backdrop-blur-md rounded-lg flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+          >
+            <ExternalLink size={16} className="sm:w-[18px] sm:h-[18px]" />
+          </a>
+        </motion.div>
       </div>
 
       {/* Content */}
-      <div className="p-6 space-y-4">
-        {/* Title */}
-        <h3 className="text-2xl font-bold text-gray-800 group-hover:text-purple-600 transition-colors duration-300">
+      <div className="p-4 sm:p-5 md:p-6">
+        <h3 className="text-lg sm:text-xl font-bold text-white mb-1.5 sm:mb-2 group-hover:text-blue-400 transition-colors line-clamp-1">
           {title}
         </h3>
-
-        {/* Description */}
-        <p className="text-gray-600 leading-relaxed line-clamp-2">
+        
+        <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-3 sm:mb-4 line-clamp-2">
           {description}
         </p>
 
         {/* Technologies */}
-        <div className="flex flex-wrap gap-2 pt-2">
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
           {technologies.map((tech, idx) => (
-            <motion.span
+            <span
               key={idx}
-              whileHover={{ scale: 1.1 }}
-              className="relative px-3 py-1 rounded-lg text-sm font-medium bg-gradient-to-r from-blue-50 to-purple-50 text-purple-700 border border-purple-200 hover:border-purple-400 transition-all duration-300 cursor-default"
+              className="px-2 sm:px-3 py-0.5 sm:py-1 bg-white/5 text-gray-300 text-[10px] sm:text-xs rounded-md sm:rounded-lg border border-white/10"
             >
               {tech}
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-400/0 via-purple-400/20 to-purple-400/0 rounded-lg opacity-0 hover:opacity-100 transition-opacity duration-300"></div>
-            </motion.span>
+            </span>
           ))}
-        </div>
-
-        {/* Bottom Action Bar */}
-        <div className="flex items-center justify-between pt-4 border-t border-gray-100">
-          <a
-            href={link}
-            className="flex items-center gap-2 text-purple-600 hover:text-purple-700 font-medium group/link transition-colors duration-300"
-          >
-            <span>Подробнее</span>
-            <svg 
-              className="w-4 h-4 transform group-hover/link:translate-x-1 transition-transform duration-300" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </a>
-
-          {/* Social Share Icons */}
-          <div className="flex gap-2">
-            <button className="w-8 h-8 rounded-full bg-gray-100 hover:bg-purple-500 hover:text-white transition-all duration-300 flex items-center justify-center">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2C6.477 2 2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.879V14.89h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.989C18.343 21.129 22 16.99 22 12c0-5.523-4.477-10-10-10z"/>
-              </svg>
-            </button>
-            <button className="w-8 h-8 rounded-full bg-gray-100 hover:bg-purple-500 hover:text-white transition-all duration-300 flex items-center justify-center">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"/>
-              </svg>
-            </button>
-          </div>
         </div>
       </div>
 
-      {/* Animated Corner Glow */}
-      <div className="absolute -top-20 -right-20 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl group-hover:bg-purple-500/40 transition-all duration-700"></div>
+      {/* Bottom Border Effect */}
+      <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-blue-500 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
     </motion.div>
   );
 }
