@@ -1,0 +1,17 @@
+[
+    {
+      "title": "Лендинг для бизнеса",
+      "description": "Адаптивный лендинг с Tailwind и формой",
+      "image": "put-your-image-here.jpg",
+      "link": "#",
+      "technologies": ["HTML", "Tailwind", "JS"]
+    },
+    {
+      "title": "React SPA",
+      "description": "Простой проект на React с фильтрами и формой",
+      "image": "put-your-image-here.jpg",
+      "link": "#",
+      "technologies": ["React", "Tailwind", "JS"]
+    }
+  ]
+  
